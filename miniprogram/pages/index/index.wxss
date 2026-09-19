@@ -1,0 +1,50 @@
+.header { padding: 24rpx 0 16rpx; display: flex; justify-content: space-between; align-items: center; }
+.brand-row { display: flex; align-items: center; gap: 16rpx; }
+.logo { width: 64rpx; height: 64rpx; border-radius: 16rpx; }
+.brand { font-size: 36rpx; font-weight: 900; color: #203d72; letter-spacing: 2rpx; }
+.sub { font-size: 22rpx; color: #7185a4; }
+
+.toolbar { margin: 16rpx 0; }
+.search {
+  display: flex; align-items: center; gap: 12rpx;
+  background: #fff; border: 1rpx solid #dae5f3; border-radius: 24rpx;
+  padding: 0 24rpx; box-shadow: 0 8rpx 24rpx #416ca90d;
+}
+.search-icon { color: #6990c6; font-size: 36rpx; }
+.search-input { flex: 1; height: 88rpx; color: #203a5b; }
+.clear { color: #8fa1b7; font-size: 36rpx; padding: 10rpx; }
+
+.filters { white-space: nowrap; margin: 20rpx 0 28rpx; }
+.chip {
+  display: inline-block; padding: 16rpx 28rpx; margin-right: 14rpx;
+  background: #fff; border: 1rpx solid #dde7f4; border-radius: 999rpx; color: #657a98;
+}
+.chip.active { background: #eaf3ff; border-color: #7baaf1; color: #3472dd; }
+
+.section-head { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 20rpx; }
+.title { font-size: 36rpx; font-weight: 700; color: #203756; }
+.count { font-size: 24rpx; color: #8193ab; }
+
+.grid { display: flex; flex-direction: column; gap: 24rpx; }
+.card {
+  display: flex; background: #fff; border: 1rpx solid #e1e9f5; border-radius: 28rpx;
+  overflow: hidden; box-shadow: 0 8rpx 32rpx #4068990c;
+}
+.cover { width: 208rpx; min-height: 208rpx; flex-shrink: 0; }
+.cover.placeholder {
+  width: 208rpx; min-height: 208rpx; background: linear-gradient(135deg, #e1f2ff, #e9ecff);
+  display: flex; align-items: center; justify-content: center; color: #4c8ae8; font-size: 48rpx; font-weight: 700;
+}
+.body { flex: 1; padding: 20rpx 24rpx; min-width: 0; }
+.tagrow { display: flex; flex-wrap: wrap; align-items: center; }
+.name { display: block; font-size: 30rpx; font-weight: 700; color: #203756; margin: 12rpx 0 8rpx; }
+.summary {
+  display: block; font-size: 24rpx; color: #71829d; line-height: 1.6;
+  overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+}
+.foot {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-top: 12rpx; padding-top: 12rpx; border-top: 1rpx solid #edf1f8; color: #8b9ab1; font-size: 22rpx;
+}
+.arrow { color: #4c8ae8; font-size: 28rpx; }
+.clear-btn { margin-top: 20rpx; color: #4c8ae8; font-size: 26rpx; }

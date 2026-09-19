@@ -1,0 +1,20 @@
+<view class="container">
+  <view class="header">
+    <view class="brand-row">
+      <image class="logo" src="/assets/logo-sm.png" mode="aspectFill" />
+      <text class="brand">码上作品</text>
+    </view>
+    <text class="sub">用代码记录成长</text>
+  </view>
+
+  <view class="info">
+    <view class="eyebrow">ABOUT THE CREATOR</view>
+    <text class="title">{{profile.title || '你好，我是项目创作者。'}}</text>
+    <text class="text">{{profile.introduction}}</text>
+    <view class="skills" wx:if="{{profile.skills}}">
+      <text class="label">擅长方向</text>
+      <text class="value">{{profile.skills}}</text>
+    </view>
+    <text wx:if="{{showContactLine}}" class="contact-line">合作或交流：请在「联系我」页面查看方式</text>
+  </view>
+</view>

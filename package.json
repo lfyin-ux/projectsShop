@@ -1,0 +1,11 @@
+{
+  "name": "projectlab",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "init-db": "npm --prefix server run init-db",
+    "server": "npm --prefix server start",
+    "admin": "npm --prefix admin run dev",
+    "install:all": "npm --prefix server install && npm --prefix admin install"
+  }
+}

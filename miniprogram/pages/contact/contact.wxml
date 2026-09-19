@@ -1,0 +1,20 @@
+<view class="container" wx:if="{{visible}}">
+  <view class="header">
+    <view class="brand-row">
+      <image class="logo" src="/assets/logo-sm.png" mode="aspectFill" />
+      <text class="brand">码上作品</text>
+    </view>
+    <text class="sub">用代码记录成长</text>
+  </view>
+
+  <view class="info">
+    <view class="eyebrow">LET'S CONNECT</view>
+    <text class="title">{{contact.title || '想进一步了解项目？'}}</text>
+    <text class="text">{{contact.description}}</text>
+    <view class="wechat-box">微信号：{{contact.wechat_id}}</view>
+    <button class="btn-primary copy-btn" bindtap="copyWechat">复制微信号</button>
+  </view>
+</view>
+<view wx:else class="container empty">
+  <text>联系方式暂未开放</text>
+</view>

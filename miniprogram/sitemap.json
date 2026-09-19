@@ -1,0 +1,4 @@
+{
+  "desc": "项目实战小程序",
+  "rules": [{ "action": "allow", "page": "*" }]
+}

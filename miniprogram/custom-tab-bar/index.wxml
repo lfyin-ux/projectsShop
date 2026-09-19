@@ -1,0 +1,13 @@
+<view class="tab-bar">
+  <view
+    wx:for="{{list}}"
+    wx:key="pagePath"
+    wx:if="{{!item.needContact || showContact}}"
+    class="tab-bar-item {{selected === item.tabIndex ? 'active' : ''}}"
+    data-path="{{item.pagePath}}"
+    bindtap="switchTab"
+  >
+    <image class="icon" src="{{selected === item.tabIndex ? item.selectedIcon : item.icon}}" mode="aspectFit" />
+    <text class="text">{{item.text}}</text>
+  </view>
+</view>

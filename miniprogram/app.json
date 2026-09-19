@@ -1,0 +1,29 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/about/about",
+    "pages/contact/contact",
+    "pages/detail/detail",
+    "pages/feature/feature"
+  ],
+  "window": {
+    "navigationBarTitleText": "码上作品",
+    "navigationBarBackgroundColor": "#ffffff",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#f6f9ff"
+  },
+  "tabBar": {
+    "custom": true,
+    "color": "#8798ae",
+    "selectedColor": "#3f7de4",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "white",
+    "list": [
+      { "pagePath": "pages/index/index", "text": "项目", "iconPath": "assets/tab-project.png", "selectedIconPath": "assets/tab-project-active.png" },
+      { "pagePath": "pages/about/about", "text": "关于我", "iconPath": "assets/tab-about.png", "selectedIconPath": "assets/tab-about-active.png" },
+      { "pagePath": "pages/contact/contact", "text": "联系我", "iconPath": "assets/tab-contact.png", "selectedIconPath": "assets/tab-contact-active.png" }
+    ]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

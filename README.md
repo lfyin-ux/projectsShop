@@ -1,2 +1,106 @@
-# projectsShop
-个人项目资源展示
+# 大学生全栈项目实训平台
+
+基于需求文档与交互原型开发的完整系统，包含：
+
+- **微信小程序展示端**（`miniprogram/`）— 访客浏览项目、搜索筛选、功能详情、关于我、联系我
+- **Web 管理后台**（`admin/`）— 项目管理、素材上传、关于我与联系方式配置
+- **后端 API**（`server/`）— Node.js + Express + MySQL，公开接口与管理接口分离
+
+## 技术栈
+
+| 模块 | 技术 |
+| --- | --- |
+| 后端 | Node.js、Express、MySQL、JWT、Multer |
+| 管理后台 | Vue 3、Vite、Element Plus |
+| 小程序 | 微信原生小程序 |
+
+## 快速开始
+
+### 1. 环境要求
+
+- Node.js 18+
+- MySQL 8.x（本地密码已配置为 `123456`）
+
+### 2. 安装依赖
+
+```bash
+npm run install:all
+```
+
+### 3. 初始化数据库
+
+```bash
+npm run init-db
+```
+
+默认管理员：**admin / admin123**
+
+### 4. 启动后端
+
+```bash
+npm run server
+```
+
+API 地址：`http://127.0.0.1:3000`
+
+### 5. 启动管理后台
+
+```bash
+npm run admin
+```
+
+后台地址：`http://127.0.0.1:5173`
+
+### 6. 运行微信小程序
+
+1. 用 [微信开发者工具](https://developers.weixin.qq.com/miniprogram/dev/devtools/download.html) 打开 `miniprogram/` 目录
+2. 在「详情 → 本地设置」勾选 **不校验合法域名**
+3. 确保后端已启动，编译运行即可
+
+如需真机调试，将 `miniprogram/utils/config.js` 中的 `baseUrl` 改为你的服务器 HTTPS 地址。
+
+## 目录结构
+
+```
+├── server/          # 后端 API
+├── admin/           # Web 管理后台
+├── miniprogram/     # 微信小程序
+├── 大学生全栈项目实训平台需求文档.md
+├── 项目实战小程序交互原型.html
+└── 项目实战管理后台原型.html
+```
+
+## 核心功能
+
+### 展示端（小程序）
+
+- 项目列表、关键词搜索、技术分类筛选
+- 项目详情（图片轮播、演示视频、技术栈、核心功能）
+- 功能二级详情（描述、截图、操作流程）
+- 关于我页面
+- 联系我（受后台 `show_contact` 开关控制，关闭时导航隐藏且接口不返回微信号）
+
+### 管理后台
+
+- 管理员登录（JWT）
+- 概览统计与快捷操作
+- 项目 CRUD、草稿/发布/下架、软删除
+- 封面上传、展示图片、演示视频、功能截图
+- 关于我与联系方式维护
+
+## 配置说明
+
+后端配置文件：`server/.env`
+
+```env
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_USER=root
+DB_PASSWORD=123456
+DB_NAME=project_shop
+PORT=3000
+```
+
+## 原型文件
+
+`项目实战小程序交互原型.html` 与 `项目实战管理后台原型.html` 为设计参考，正式系统已对接真实 API 与数据库。

@@ -1,0 +1,50 @@
+page {
+  background: linear-gradient(180deg, #eef5ff 0, #f8fbff 430px, #f7faff 100%);
+  color: #172b4d;
+  font-family: -apple-system, "Microsoft YaHei", sans-serif;
+  font-size: 14px;
+}
+
+.container {
+  padding: 0 32rpx calc(140rpx + env(safe-area-inset-bottom));
+}
+
+.eyebrow {
+  color: #4b84e9;
+  font-size: 22rpx;
+  letter-spacing: 0.2em;
+  font-weight: 700;
+}
+
+.tag {
+  display: inline-block;
+  color: #4a82c5;
+  background: #eef6ff;
+  border: 1rpx solid #d6eafa;
+  border-radius: 8rpx;
+  font-size: 22rpx;
+  padding: 6rpx 12rpx;
+  margin-right: 8rpx;
+  margin-bottom: 8rpx;
+}
+
+.tag.diff {
+  color: #6a7ece;
+  background: #f0f2ff;
+  border-color: #e2e5ff;
+}
+
+.empty {
+  padding: 80rpx 40rpx;
+  text-align: center;
+  color: #7e8fa9;
+  border: 2rpx dashed #d5e2f3;
+  border-radius: 24rpx;
+}
+
+.btn-primary {
+  background: linear-gradient(100deg, #4182f2, #6facf4);
+  color: #fff;
+  border-radius: 20rpx;
+  font-weight: 700;
+}

@@ -1,0 +1,18 @@
+.back {
+  display: inline-block; margin-bottom: 20rpx; padding: 16rpx 24rpx;
+  background: #eff6ff; color: #3976cb; border-radius: 16rpx; font-weight: 700; font-size: 26rpx;
+}
+.title { display: block; font-size: 40rpx; font-weight: 800; color: #1d395d; margin: 12rpx 0 16rpx; }
+.desc { color: #647d9d; line-height: 1.8; font-size: 28rpx; }
+.section { margin-top: 36rpx; }
+.section-title { display: block; font-size: 30rpx; font-weight: 700; color: #1d395d; margin-bottom: 16rpx; }
+.shot { margin-bottom: 24rpx; }
+.shot-img { width: 100%; border-radius: 20rpx; border: 1rpx solid #dce9f7; }
+.caption { display: block; font-size: 22rpx; color: #8c9db1; margin-top: 8rpx; }
+.steps { display: flex; flex-direction: column; gap: 16rpx; }
+.step { display: flex; gap: 16rpx; align-items: flex-start; color: #647d9d; line-height: 1.8; }
+.num {
+  width: 40rpx; height: 40rpx; border-radius: 50%; background: #edf5ff; color: #4c8ae8;
+  display: flex; align-items: center; justify-content: center; font-size: 22rpx; flex-shrink: 0;
+}
+.text { flex: 1; font-size: 26rpx; }

@@ -1,0 +1,46 @@
+<view class="container" wx:if="{{project}}">
+  <view class="eyebrow">PROJECT / {{project.id}}</view>
+  <text class="title">{{project.name}}</text>
+  <view class="tagrow">
+    <text wx:for="{{project.techs}}" wx:key="*this" class="tag">{{item}}</text>
+    <text class="tag diff">{{project.level}}</text>
+  </view>
+
+  <view wx:if="{{gallery.length}}" class="section">
+    <text class="section-title">项目展示图片</text>
+    <image class="gallery-main" src="{{gallery[activeImage].url}}" mode="aspectFill" bindtap="previewImage" data-index="{{activeImage}}" />
+    <scroll-view scroll-x class="thumbs">
+      <image wx:for="{{gallery}}" wx:key="id"
+        class="thumb {{activeImage === index ? 'active' : ''}}"
+        src="{{item.url}}" mode="aspectFill"
+        data-index="{{index}}" bindtap="switchImage" />
+    </scroll-view>
+  </view>
+
+  <view wx:if="{{project.video}}" class="section">
+    <text class="section-title">演示视频</text>
+    <video class="video" src="{{project.video.url}}" controls poster="{{project.cover.url}}" />
+  </view>
+
+  <view class="section">
+    <text class="section-title">项目简介</text>
+    <text class="desc">{{project.description}}</text>
+  </view>
+
+  <view class="section">
+    <text class="section-title">主要技术</text>
+    <view class="tech-list">
+      <text wx:for="{{project.techs}}" wx:key="*this" class="tech">{{item}}</text>
+    </view>
+  </view>
+
+  <view class="section">
+    <text class="section-title">核心功能</text>
+    <view class="feature-list">
+      <view wx:for="{{project.features}}" wx:key="id" class="feature-item" data-id="{{item.id}}" bindtap="goFeature">
+        <text>✓ {{item.name}}</text>
+        <text class="arrow">›</text>
+      </view>
+    </view>
+  </view>
+</view>
