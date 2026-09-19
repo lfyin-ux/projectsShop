@@ -32,3 +32,20 @@ export function uploadFile(file) {
     headers: { 'Content-Type': 'multipart/form-data' }
   });
 }
+
+export function previewImportDocx(file) {
+  const form = new FormData();
+  form.append('file', file);
+  return api.post('/admin/import/preview', form, {
+    headers: { 'Content-Type': 'multipart/form-data' }
+  });
+}
+
+export function importDocx(file) {
+  const form = new FormData();
+  form.append('file', file);
+  return api.post('/admin/import/docx', form, {
+    headers: { 'Content-Type': 'multipart/form-data' },
+    timeout: 120000
+  });
+}

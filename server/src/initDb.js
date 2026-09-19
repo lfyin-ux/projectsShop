@@ -30,7 +30,7 @@ async function init() {
     CREATE TABLE IF NOT EXISTS project (
       id INT PRIMARY KEY AUTO_INCREMENT,
       name VARCHAR(80) NOT NULL,
-      category VARCHAR(32) NOT NULL,
+      category VARCHAR(128) NOT NULL,
       level VARCHAR(16) DEFAULT '入门',
       summary VARCHAR(120) NOT NULL DEFAULT '',
       description TEXT NOT NULL,

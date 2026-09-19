@@ -8,12 +8,24 @@
 
   <view wx:if="{{gallery.length}}" class="section">
     <text class="section-title">项目展示图片</text>
-    <image class="gallery-main" src="{{gallery[activeImage].url}}" mode="aspectFill" bindtap="previewImage" data-index="{{activeImage}}" />
-    <scroll-view scroll-x class="thumbs">
-      <image wx:for="{{gallery}}" wx:key="id"
-        class="thumb {{activeImage === index ? 'active' : ''}}"
-        src="{{item.url}}" mode="aspectFill"
-        data-index="{{index}}" bindtap="switchImage" />
+    <image
+      class="gallery-main"
+      src="{{gallery[activeImage].url}}"
+      mode="aspectFill"
+      catchtap="previewImage"
+      data-index="{{activeImage}}"
+    />
+    <scroll-view scroll-x class="thumbs" enable-flex enhanced show-scrollbar="{{false}}">
+      <view
+        wx:for="{{gallery}}"
+        wx:key="id"
+        wx:for-index="idx"
+        class="thumb-wrap {{activeImage === idx ? 'active' : ''}}"
+        catchtap="switchImage"
+        data-index="{{idx}}"
+      >
+        <image class="thumb" src="{{item.url}}" mode="aspectFill" />
+      </view>
     </scroll-view>
   </view>
 
@@ -24,7 +36,7 @@
 
   <view class="section">
     <text class="section-title">项目简介</text>
-    <text class="desc">{{project.description}}</text>
+    <text class="desc" user-select>{{project.description}}</text>
   </view>
 
   <view class="section">
@@ -37,8 +49,15 @@
   <view class="section">
     <text class="section-title">核心功能</text>
     <view class="feature-list">
-      <view wx:for="{{project.features}}" wx:key="id" class="feature-item" data-id="{{item.id}}" bindtap="goFeature">
-        <text>✓ {{item.name}}</text>
+      <view
+        wx:for="{{project.features}}"
+        wx:key="id"
+        class="feature-item"
+        hover-class="feature-item-hover"
+        catchtap="goFeature"
+        data-id="{{item.id}}"
+      >
+        <text class="feature-name">✓ {{item.name}}</text>
         <text class="arrow">›</text>
       </view>
     </view>

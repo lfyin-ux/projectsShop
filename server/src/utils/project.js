@@ -1,4 +1,7 @@
 import pool from '../db.js';
+import { parseCategories, serializeCategories } from '../constants/categories.js';
+
+export { parseCategories, serializeCategories };
 
 export function parseTechInput(input) {
   if (!input) return [];
@@ -45,13 +48,14 @@ export async function loadProjectFull(id, { publishedOnly = false } = {}) {
   project.cover = media.find((m) => m.type === 'cover') || null;
   project.images = media.filter((m) => m.type === 'image');
   project.video = media.find((m) => m.type === 'video') || null;
+  project.categories = parseCategories(project.category);
   return project;
 }
 
 export async function validateForPublish(project) {
   const errors = [];
   if (!project.name?.trim()) errors.push('请填写项目名称');
-  if (!project.category?.trim()) errors.push('请选择技术方向');
+  if (!parseCategories(project.category).length) errors.push('请选择技术方向');
   if (!project.description?.trim()) errors.push('请填写项目简介');
   if (!project.techs?.length) errors.push('请至少添加一项主要技术');
   if (!project.cover) errors.push('请上传封面图');
@@ -64,10 +68,13 @@ export async function validateForPublish(project) {
 }
 
 export function formatProjectListItem(row) {
+  const categories = parseCategories(row.category);
   return {
     id: row.id,
     name: row.name,
     category: row.category,
+    categories,
+    categoryDisplay: categories.join(' · '),
     level: row.level,
     summary: row.summary,
     sort_order: row.sort_order,

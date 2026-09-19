@@ -17,6 +17,7 @@
     <div class="panel">
       <h2>常用操作</h2>
       <div class="quick">
+        <button @click="$router.push('/projects')"><b>📥 导入项目</b><span>从 Word 模板一键导入</span></button>
         <button @click="$router.push('/projects/new')"><b>＋ 添加项目</b><span>填写项目简介与主要技术</span></button>
         <button @click="$router.push('/projects')"><b>▧ 管理项目内容</b><span>维护图片、视频和核心功能</span></button>
         <button @click="$router.push('/contact')"><b>✉ 更新联系方式</b><span>修改展示给访客的微信号</span></button>

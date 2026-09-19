@@ -40,5 +40,8 @@ module.exports = {
   },
   getCategories() {
     return request('/public/categories');
+  },
+  getLevels() {
+    return request('/public/levels');
   }
 };

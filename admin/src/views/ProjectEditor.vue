@@ -18,8 +18,8 @@
               <el-input v-model="form.name" placeholder="例如：校园二手交易平台" />
             </el-form-item>
             <el-form-item label="技术方向" required>
-              <el-select v-model="form.category">
-                <el-option v-for="c in categories.slice(1)" :key="c" :label="c" :value="c" />
+              <el-select v-model="form.categories" multiple collapse-tags collapse-tags-tooltip placeholder="可多选">
+                <el-option v-for="c in categoryOptions" :key="c" :label="c" :value="c" />
               </el-select>
             </el-form-item>
             <el-form-item label="难度">
@@ -127,7 +127,7 @@ const isNew = computed(() => route.path.endsWith('/new'));
 const projectId = ref(isNew.value ? null : Number(route.params.id));
 const loading = ref(false);
 const tab = ref('basic');
-const categories = ['全部', 'Java', 'Python', '小程序', 'AI应用', '其他'];
+const categoryOptions = ['Java', 'Python', 'MySQL', 'Vue', '小程序', 'Android', 'AI应用', '其他'];
 const techInput = ref('');
 const cover = ref(null);
 const images = ref([]);
@@ -135,7 +135,7 @@ const video = ref(null);
 
 const form = reactive({
   name: '',
-  category: 'Java',
+  categories: ['Java'],
   level: '入门',
   summary: '',
   description: '',
@@ -151,7 +151,7 @@ async function loadProject() {
     const p = await api.get(`/admin/projects/${projectId.value}`);
     Object.assign(form, {
       name: p.name,
-      category: p.category,
+      categories: p.categories?.length ? p.categories : (p.category ? p.category.split(/[,，]/).map((s) => s.trim()).filter(Boolean) : ['Java']),
       level: p.level,
       summary: p.summary,
       description: p.description,
@@ -170,6 +170,7 @@ async function loadProject() {
 
 async function save(status) {
   if (!form.name.trim()) return ElMessage.warning('请填写项目名称');
+  if (!form.categories.length) return ElMessage.warning('请至少选择一个技术方向');
   const payload = {
     ...form,
     status,
@@ -188,11 +189,16 @@ async function save(status) {
       projectId.value = created.id;
       if (status === 'published') {
         await api.post(`/admin/projects/${projectId.value}/publish`);
+      } else {
+        router.replace(`/projects/${projectId.value}/edit`);
       }
-      router.replace(`/projects/${projectId.value}/edit`);
     }
     ElMessage.success(status === 'published' ? '项目已发布' : '草稿已保存');
-    await loadProject();
+    if (status === 'published') {
+      router.push('/projects');
+    } else {
+      await loadProject();
+    }
   } finally {
     loading.value = false;
   }

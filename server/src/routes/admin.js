@@ -5,8 +5,10 @@ import pool from '../db.js';
 import { authRequired } from '../middleware/auth.js';
 import {
   parseTechInput,
+  parseCategories,
   loadProjectFull,
-  validateForPublish
+  validateForPublish,
+  serializeCategories
 } from '../utils/project.js';
 
 const router = Router();
@@ -75,7 +77,10 @@ router.get('/projects', authRequired, async (req, res) => {
     }
     sql += ' ORDER BY p.updated_at DESC';
     const [rows] = await pool.query(sql, params);
-    res.json(rows);
+    res.json(rows.map((row) => ({
+      ...row,
+      categories: parseCategories(row.category)
+    })));
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: '获取项目列表失败' });
@@ -106,7 +111,7 @@ router.post('/projects', authRequired, async (req, res) => {
        VALUES (?, ?, ?, ?, ?, ?, ?)`,
       [
         body.name || '未命名项目',
-        body.category || '其他',
+        serializeCategories(body.categories || body.category),
         body.level || '入门',
         summary,
         body.description || '',
@@ -162,7 +167,7 @@ router.put('/projects/:id', authRequired, async (req, res) => {
        WHERE id=?`,
       [
         body.name,
-        body.category,
+        serializeCategories(body.categories || body.category),
         body.level || '入门',
         summary,
         body.description,

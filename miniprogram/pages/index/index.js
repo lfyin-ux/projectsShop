@@ -1,16 +1,20 @@
 const api = require('../../utils/api');
 const { updateTabBar } = require('../../utils/tabbar');
+const { localizeUrl } = require('../../utils/media');
 
 Page({
   data: {
     keyword: '',
-    selected: '全部',
-    categories: ['全部', 'Java', 'Python', '小程序', 'AI应用', '其他'],
+    selectedCategory: '全部',
+    selectedLevel: '全部',
+    categories: ['全部'],
+    levels: ['全部'],
     list: [],
     total: 0
   },
 
   onLoad() {
+    this.loadFilters();
     this.loadProjects();
   },
 
@@ -20,7 +24,7 @@ Page({
   },
 
   onPullDownRefresh() {
-    this.loadProjects().finally(() => wx.stopPullDownRefresh());
+    Promise.all([this.loadFilters(), this.loadProjects()]).finally(() => wx.stopPullDownRefresh());
   },
 
   async syncSiteConfig() {
@@ -33,18 +37,41 @@ Page({
     }
   },
 
+  async loadFilters() {
+    try {
+      const [categories, levels] = await Promise.all([
+        api.getCategories(),
+        api.getLevels()
+      ]);
+      this.setData({
+        categories: categories.length ? categories : ['全部'],
+        levels: levels.length ? levels : ['全部']
+      });
+    } catch (e) {
+      console.error('加载筛选项失败', e);
+    }
+  },
+
   async loadProjects() {
     wx.showLoading({ title: '加载中' });
     try {
-      const { keyword, selected } = this.data;
+      const { keyword, selectedCategory, selectedLevel } = this.data;
       const res = await api.getProjects({
         keyword,
-        category: selected === '全部' ? '' : selected
+        category: selectedCategory === '全部' ? '' : selectedCategory,
+        level: selectedLevel === '全部' ? '' : selectedLevel
       });
-      const list = (res.list || []).map((item) => ({
+      const rawList = (res.list || []).map((item) => ({
         ...item,
         cover_url: api.absUrl(item.cover_url)
       }));
+      const list = [];
+      for (const item of rawList) {
+        list.push({
+          ...item,
+          cover_url: item.cover_url ? await localizeUrl(item.cover_url) : ''
+        });
+      }
       this.setData({ list, total: res.total || 0 });
     } catch (e) {
       wx.showToast({ title: '加载失败', icon: 'none' });
@@ -62,7 +89,12 @@ Page({
   },
 
   onFilter(e) {
-    this.setData({ selected: e.currentTarget.dataset.category }, () => this.loadProjects());
+    const { type, value } = e.currentTarget.dataset;
+    if (type === 'category') {
+      this.setData({ selectedCategory: value }, () => this.loadProjects());
+    } else if (type === 'level') {
+      this.setData({ selectedLevel: value }, () => this.loadProjects());
+    }
   },
 
   goDetail(e) {

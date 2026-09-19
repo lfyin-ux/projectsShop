@@ -1,12 +1,13 @@
 import { Router } from 'express';
 import pool from '../db.js';
 import { loadProjectFull, formatProjectListItem } from '../utils/project.js';
+import { PROJECT_CATEGORIES } from '../constants/categories.js';
 
 const router = Router();
 
 router.get('/projects', async (req, res) => {
   try {
-    const { keyword = '', category = '', page = 1, pageSize = 20 } = req.query;
+    const { keyword = '', category = '', level = '', page = 1, pageSize = 20 } = req.query;
     const offset = (Math.max(Number(page), 1) - 1) * Math.min(Number(pageSize) || 20, 50);
     const limit = Math.min(Number(pageSize) || 20, 50);
 
@@ -20,8 +21,12 @@ router.get('/projects', async (req, res) => {
     const params = [];
 
     if (category && category !== '全部') {
-      sql += ' AND p.category = ?';
-      params.push(category);
+      sql += ` AND CONCAT(',', REPLACE(p.category, '，', ','), ',') LIKE ?`;
+      params.push(`%,${category},%`);
+    }
+    if (level && level !== '全部') {
+      sql += ' AND p.level = ?';
+      params.push(level);
     }
     if (keyword.trim()) {
       sql += ` AND (
@@ -120,7 +125,22 @@ router.get('/site/config', async (req, res) => {
 });
 
 router.get('/categories', async (_req, res) => {
-  res.json(['全部', 'Java', 'Python', '小程序', 'AI应用', '其他']);
+  res.json(['全部', ...PROJECT_CATEGORIES]);
+});
+
+router.get('/levels', async (_req, res) => {
+  try {
+    const [rows] = await pool.query(`
+      SELECT DISTINCT level FROM project
+      WHERE status = 'published' AND deleted_at IS NULL AND level IS NOT NULL AND level != ''
+      ORDER BY FIELD(level, '入门', '进阶', '高级'), level
+    `);
+    const levels = rows.map((r) => r.level);
+    res.json(['全部', ...levels]);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: '获取难度选项失败' });
+  }
 });
 
 export default router;
